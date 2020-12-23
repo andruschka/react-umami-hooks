@@ -1,14 +1,24 @@
 {
   "name": "react-umami-hooks",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "React hooks for Umami Analytics.",
-  "main": "index.js",
+  "main": "index.min.js",
   "scripts": {
+    "prepublish": "babel --presets @babel/preset-env --minified -o index.min.js index.js"
   },
-  "keywords": ["umami", "react", "analytics", "hooks"],
+  "keywords": [
+    "umami",
+    "react",
+    "analytics",
+    "hooks"
+  ],
   "author": "",
   "peerDependencies": {
     "react": ">=16.8.0"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "browserslist": "ie >= 10",
+  "devDependencies": {
+    "@babel/preset-env": "^7.12.11"
+  }
 }
