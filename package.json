@@ -1,0 +1,14 @@
+{
+  "name": "react-umami-hooks",
+  "version": "0.0.1",
+  "description": "React hooks for Umami Analytics.",
+  "main": "index.js",
+  "scripts": {
+  },
+  "keywords": ["umami", "react", "analytics", "hooks"],
+  "author": "",
+  "peerDependencies": {
+    "react": ">=16.8.0"
+  },
+  "license": "MIT"
+}
