@@ -1,4 +1,4 @@
-# 🥓 react-umami-hooks
+# 🥓 react-use-umami
 React hooks for [umami analytics](https://umami.is/).  
 Track page views and events from React components.
 
@@ -22,15 +22,16 @@ Then follow the instructions on the [umami docs page](https://umami.is/docs/) to
 You can now import and use `useTrackView` and `useTrackEvent` from this module:
 ```javascript
 const { React } = require('react')
-const { useTrackView, useTrackEvent } = require('react-umami-hooks')
+const useUmami = require('@parcellab/react-use-umami')
 
 const HomePage = (props) => {
-  useTrackView('/') // will only get fired once
-  const _track = useTrackEvent('/')
+  const _trackEvt = useUmami('/') // will fire a page view once
+  // call this hook only in the top main component and pass the _track function down where it is needed!
 
 const handleSignupClick = () => {
-    _track('Signup CTA clicked')
+    _trackEvt('Signup CTA', 'click') // will register a 'click' event with value 'Signup CTA'
     // ...
+    _trackEvt('Form submitted') // will register a 'custom' event with value 'Form submitted'
   }
 
   return (
@@ -43,11 +44,8 @@ const handleSignupClick = () => {
 
 ```
 
-### useTrackView(url, [referrer], [website_id]) : undefined
-Tracks a page view. Only runs once per rendered component. Use this on the top page components for tracking page views. The **referrer** and **website_id** values are optional. They will default to the page referrer and data-website-id defined by the script. Returns undefined.
+### useUmami(url, [referrer], [website_id], [skipPageView]) : function trackEvt
+Tracks a page view. Only runs once per rendered component. Use this on the top page components for tracking page views. The **referrer** and **website_id** values are optional. They will default to the page referrer and data-website-id defined by the script. Returns a function for tracking events. If **skipPageView** is true, the initial page view will not be triggered.  
 
-## useTrackEvent([url], [website_id]) : function
-Creates a track function. The **url** and **website_id** values are optional. They will default to the page url and data-website-id defined by the script. Returns a track function:
-
-## _track(event_value, [event_type]) : undefined
-The **event_type** is optional, defaults to `custom`. 
+### trackEvt(event_value, [event_type]) : undefined
+Tracks a (custom) event. If **event_type** is omitted it will default to 'custom'. Can be called multiple times.

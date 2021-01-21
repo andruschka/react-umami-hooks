@@ -1,23 +1,25 @@
 const React = require('react')
 
-exports.useTrackView = (url, referrer, websiteId) => {
+module.exports = (url, referrer, websiteId, noPageView = false) => {
   React.useEffect(() => {
-    try {
-      const umami = window.umami
-      umami.trackView(url, referrer, websiteId)
-    } catch (err) {
-      console.warn && console.warn(err.message)
+    if (!noPageView) {
+      try {
+        const umami = window.umami
+        umami.trackView(url, referrer, websiteId)
+      } catch (err) {
+        console.warn && console.warn(err.message)
+      }
     }
-  }, [url, referrer, websiteId])
-}
+  }, [url, referrer, websiteId, noPageView])
 
-exports.useTrackEvent = (url, websiteId) => {
-  return React.useMemo(() => (eventValue, eventType) => {
+  const trackEvent = (eventValue, eventType = 'custom') => {
     try {
       const umami = window.umami
-      umami.trackEvent(eventValue, eventType || 'custom', url, websiteId)
+      umami.trackEvent(eventValue, eventType, url, websiteId)
     } catch (err) {
       console.warn && console.warn(err.message)
     }
-  }, [url, websiteId])
+  }
+
+  return [trackEvent]
 }
