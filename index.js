@@ -1,8 +1,9 @@
 const React = require('react')
 
-module.exports = (url, referrer, websiteId, noPageView = false) => {
+module.exports = (url, referrer, websiteId, skipPageView) => {
+  skipPageView = skipPageView || false
   React.useEffect(() => {
-    if (!noPageView) {
+    if (!skipPageView) {
       try {
         const umami = window.umami
         umami.trackView(url, referrer, websiteId)
@@ -10,10 +11,11 @@ module.exports = (url, referrer, websiteId, noPageView = false) => {
         console.warn && console.warn(err.message)
       }
     }
-  }, [url, referrer, websiteId, noPageView])
+  }, [url, referrer, websiteId, skipPageView])
 
-  const trackEvent = (eventValue, eventType = 'custom') => {
+  const trackEvent = (eventValue, eventType) => {
     try {
+      eventType = eventType || 'custom'
       const umami = window.umami
       umami.trackEvent(eventValue, eventType, url, websiteId)
     } catch (err) {
@@ -21,5 +23,5 @@ module.exports = (url, referrer, websiteId, noPageView = false) => {
     }
   }
 
-  return [trackEvent]
+  return trackEvent
 }

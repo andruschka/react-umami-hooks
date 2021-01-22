@@ -1,6 +1,6 @@
 {
   "name": "@parcellab/react-use-umami",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "React tools for Umami Analytics.",
   "main": "index.min.js",
   "scripts": {
