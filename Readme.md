@@ -69,4 +69,4 @@ Tracks a page view. Only runs once per rendered component. Use this on the top p
 Tracks a (custom) event. If **event_type** is omitted it will default to 'custom'. Can be called multiple times.
 
 ### registerUmamiScript(url, websiteId, dataDomain) : function registerUmamiScript
-Adds script with url, websiteId and dataDomain to the header script of the html page. Should be triggerd once in the root component (use `useEffect` hook with an empty array as a second argument to trigger once). This can also be done manually without triggering this function. For reference see the docs [umami docs page](https://umami.is/docs/)
+Adds script with url, websiteId and dataDomain to the header of the html page. Should be triggerd once in the root component (use `useEffect` hook with an empty array as a second argument to trigger once). This can also be done manually without usage of this function. For reference see the docs [umami docs page](https://umami.is/docs/)
