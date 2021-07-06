@@ -18,7 +18,7 @@ export const registerUmamiScript = (url, websiteId, dataDomain) => {
 export default (url, referrer, websiteId, skipPageView) => {
   skipPageView = skipPageView || false
   React.useEffect(() => {
-    if (!skipPageView) {
+    if (!skipPageView && window.umami) {
       try {
         const umami = window.umami
         umami.trackView(url, referrer, websiteId)
