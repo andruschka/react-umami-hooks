@@ -1,13 +1,7 @@
 const React = require('react')
 
 export const registerUmamiScript = (url, websiteId, dataDomain) => {
-  if (!url || !websiteId || !dataDomain) {
-    window.umami = {
-      trackView: () => { 
-        console.log('No umami config provided')
-      }
-    }
-  } else {
+  if (url && websiteId && dataDomain) {
     const head = document.getElementsByTagName('head')[0]
     const script = document.createElement('script')
     script.type = 'text/javascript';
