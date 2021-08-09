@@ -8,7 +8,8 @@ Track page views and events from React components.
 $ npm i react-umami-hooks
 ```
 
-Then follow the instructions on the [umami docs page](https://umami.is/docs/) to add the script to the `<head>` section of your page if you have not already. After this (disable the automatic page view tracking)[https://umami.is/docs/tracker-config] ba adding 
+Then you'll need to add the script to the `<head>` section of your page.
+* This can be done manually: Follow the instructions on the [umami docs page](https://umami.is/docs/) to add the script to the `<head>` section of your page if you have not already. After this (disable the automatic page view tracking)[https://umami.is/docs/tracker-config] ba adding 
 `data-auto-track="false"` to your tracking script so it looks something like this:  
 ```
 <script async defer
@@ -16,6 +17,23 @@ Then follow the instructions on the [umami docs page](https://umami.is/docs/) to
   data-website-id="94db1cb1-74f4-4a40-ad6c-962362670409"
   data-auto-track="false"
 ></script>
+```
+* Or using `registerUmamiScript` function from the package.
+```javascript
+import React from 'react'
+import { registerUmamiScript } from '@parcellab/react-use-umami'
+
+export default function App ({ url, websiteId, dataDomain }) {
+  React.useEffect(() => {
+    registerUmamiScript(url, websiteId, dataDomain)
+  }, [])
+  return (
+    <>
+      <HomePage />
+      ...
+    </>
+  )
+}
 ```
  
  ## Usage
@@ -49,3 +67,6 @@ Tracks a page view. Only runs once per rendered component. Use this on the top p
 
 ### trackEvt(event_value, [event_type]) : undefined
 Tracks a (custom) event. If **event_type** is omitted it will default to 'custom'. Can be called multiple times.
+
+### registerUmamiScript(url, websiteId, dataDomain) : function registerUmamiScript
+Adds script with url, websiteId and dataDomain to the header of the html page. Should be triggerd once in the root component (use `useEffect` hook with an empty array as a second argument to trigger once). This can also be done manually without usage of this function. For reference see the docs [umami docs page](https://umami.is/docs/)
